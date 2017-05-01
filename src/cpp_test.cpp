@@ -14,7 +14,7 @@ using namespace std;
 #define num_array 5
 #define dim_array 6
 
-const char* menu_array[num_array][dim_array];
+
 char index[] = {"1-/-/-/-/"};
 int index_dim = 9;
 
@@ -72,13 +72,67 @@ int getMenuRow(char index[]){
 	return value;
 }
 
+void nextLevel(char num){
+	int i = 0;
+	while(i<index_dim){
+		if(index[i] == '/'){
+			break;
+		}else{
+			i++;
+		}
+	}
+
+	if(i < index_dim){
+		index[i] = num;
+	}
+}
+
+void backLevel(){
+	int i = 0;
+	while(i<index_dim){
+		if(index[i] == '/'){
+			break;
+		}else{
+			i++;
+		}
+	}
+
+	if(i == index_dim){
+		index[i-1] = '/';
+	}else{
+		if(i < index_dim and i > 2){
+			index[i-2] = '/';
+		}
+	}
+
+}
+
+int getSizeArray(int row){
+	int i = 1;
+	while(i < dim_array){
+		const char* temp = menu_array[row][i];
+		if(temp == "nil"){
+			break;
+		}else{
+			i++;
+		}
+	}
+
+	if(i < dim_array){
+		i++;
+	}
+	return i;
+}
 
 int main() {
 	const char* level_1[6] = {"1","Sensors", "RBG LED", "Erin", "Mani", "Doggy dog"};
 	const char* level_1_1[4] {"1-1","Temperature", "Light", "<- BACK"};
-	const char* level_1_1_1[4] {"1-1-1","ON", "OFF", "<- BACK"};
+	const char* level_1_1_1[4] {"1-1-1-2-4","ON", "OFF", "<- BACK"};
 	const char* level_1_2[6] {"1-2","OFF", "Blue", "Green", "Red", "<- BACK"};
 	const char* level_1_3[2] {"1-3","<- BACK"};
+	const char* menu_array[num_array][dim_array];
+
+
 
 	addArray(0, level_1, 6);
 	addArray(1, level_1_1, 4);
@@ -86,20 +140,30 @@ int main() {
 	addArray(3, level_1_2, 6);
 	addArray(5, level_1_3, 2);
 
-//	int i=0;
-//	while(menu_array[1][i] != "nil"){
-//		i++;
-//	}
-
-//	int getArray(int num, int level){
-//
-//	}
-
-	char test2[] = {"1-2-1-1-1-5-2"};
+	char test2[] = {"1-1-1-2-4"};
+	int num = 2;
+	char num_char = '0' + num;
+	nextLevel(num_char);
+	nextLevel(num_char);
+	nextLevel(num_char);
+	nextLevel(num_char);
+	backLevel();
+	backLevel();
+	backLevel();
+	backLevel();
+	backLevel();
 
 //	int test = getMenuRow(test2);
 
-	int test = 0;
-	cout << test2 << "\n" << test << endl;
+//	int test = getSizeArray(8);
+
+	const char* array[dim_array];
+	for(int i = 1; i < dim_array; i++){
+		array[i-1] = menu_array[0][i];
+	}
+
+
+//	int test = 0;
+	cout << test2 << "\n" << array[0] << "\n" << array[0] << endl;
 	return 0;
 }
